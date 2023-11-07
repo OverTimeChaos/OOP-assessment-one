@@ -1,0 +1,30 @@
+animal(elephant).
+animal(lion).
+animal(giraffe).
+animal(zebra).
+animal(hawk).
+animal(snake).
+animal(kangaroo).
+animal(panda).
+animal(rabbit).
+animal(dog).
+herbivore(elephant).
+herbivore(rabbit).
+herbivore(giraffe).
+herbivore(zebra).
+herbivore(kanagroo).
+herbivore(panda).
+carnivore(lion).
+carnivore(dog).
+carnivore(hawk).
+carnivore(snake).
+eat(elephant,grass).
+eat(lion,meat).
+eat(giraffe,leaves).
+eat(zebra,grass).
+eat(hawk,small_mammals).
+eat(snake,rodents).
+eat(kangaroo,grass).
+eat(panda,bamboo).
+iscarnivore(X) :- carnivore(X).
+isherbivore(X) :- herbivore(X).
