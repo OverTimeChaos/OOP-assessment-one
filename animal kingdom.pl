@@ -1,23 +1,13 @@
-animal(elephant).
-animal(lion).
-animal(giraffe).
-animal(zebra).
-animal(hawk).
-animal(snake).
-animal(kangaroo).
-animal(panda).
-animal(rabbit).
-animal(dog).
-herbivore(elephant).
-herbivore(rabbit).
-herbivore(giraffe).
-herbivore(zebra).
-herbivore(kanagroo).
-herbivore(panda).
-carnivore(lion).
-carnivore(dog).
-carnivore(hawk).
-carnivore(snake).
+animal(elephant,herbivore).
+animal(lion,carnivore).
+animal(giraffe,herbivore).
+animal(zebra,herbivore).
+animal(hawk,carnivore).
+animal(snake,carnivore).
+animal(kangaroo,herbivore).
+animal(panda,herbivore).
+animal(rabbit,herbivore).
+animal(dog,carnivore).
 eat(elephant,grass).
 eat(lion,meat).
 eat(giraffe,leaves).
@@ -26,5 +16,5 @@ eat(hawk,small_mammals).
 eat(snake,rodents).
 eat(kangaroo,grass).
 eat(panda,bamboo).
-iscarnivore(X) :- carnivore(X).
-isherbivore(X) :- herbivore(X).
+iscarnivore(X) :- animal(X,carnivore).
+isherbivore(X) :- animal(X,herbivore).
