@@ -1,4 +1,3 @@
-
 class User:
     def __init__ (self,name,age):
         # the User name and age of account 
