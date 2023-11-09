@@ -11,6 +11,9 @@ def logon(x):
     if lockingout == 3:
         print ("Failed too many times. You have been locked out.")
         quit()
+    else:
+        if x == "Aidan":
+        elif x == "Akhil":
+        elif x == "Adam":
 name = input ("please enter a name ")
 lockingout = 0
-logon(name)
