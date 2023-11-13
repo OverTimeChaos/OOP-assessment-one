@@ -7,6 +7,10 @@ class User:
         #displays details of account
         print (self.name)
         print (self.age)
+class Bank (User):
+    def __init__(self,name,age):
+        super().__init__ (self,name,age)
+        pass
 def logon(x):
     global lockingout
     if lockingout == 3:
@@ -14,11 +18,16 @@ def logon(x):
         quit()
     else:
         if x == "Aidan":
-            print
+            print ("Welcome, Aidan")
+            age = -127
+            
         elif x == "Akhil":
-            pass
+            print ("Welcome, Akhil")
+            age = 17
         elif x == "Adam":
-            pass
+            print ("Welcome, Adam")
+            age = 1
+            
         else:
             print ("You have failed to enter a valid user")
             lockingout = lockingout + 1
