@@ -5,42 +5,12 @@ class User:
         self.age = age
     def displaydetails(self):
         #displays details of account
-        print (self.name)
-        print (self.age)
+        print ("Name: " + self.name)
+        print ("Age: " + self.age)
 class Bank (User):
     def __init__(self,name,age):
         super().__init__ (self,name,age)
-        self.balance = 0 
-    def deposit (self,amount):
-        self.balance = self.balance + amount
-        print (f"New balance is {self.balance}")
-def ui (x,age):
-    print (f'''Enter:
-           {\033[1m}bank{"\033[0m}
-           Deposit - To deposit money into bank account
-           Withdraw - To withdraw money from bank account
-           Display - To display details of your bank account
-           
-           
-''')
-    option = input("What do you want to do, " + x )
-    if option.lower() == "deposit":
         pass
-    elif option.lower() == "withdraw":
-        pass
-    elif option.lower() == "display":
-        pass
-    elif option.lower() == "buy":
-        pass
-    elif option.lower() == "remove from cart":
-        pass
-    elif option.lower() == "checkout":
-        pass
-    else:
-        print ("Please enter valid option")
-        return ui(x,age)
-
-
 def logon(x):
     global lockingout
     if lockingout == 3:
