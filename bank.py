@@ -7,12 +7,6 @@ class User:
         #displays details of account
         print ("Name: " + self.name.title())
         print ("Age: " + str(self.age))
-
-
-
-
-
-
 class Bank (User):
     def __init__(self,name,age):
         #allows perimeters to be inherited also 
@@ -28,11 +22,6 @@ class Bank (User):
     def displaybank (self):
         # display balance
         print ("Balance: " + str(self.balance))
-
-
-
-
-
 class Product():
     # creates the attributes for products 
     def __init__(self,name,desc,quantity,price):
@@ -47,19 +36,36 @@ class Product():
 quantity: {self.quantity}
 Price: ${self.price}''')
     def reduce(self,amount):
-        #checks if amount can be reduced and then reduces the amount if it can
-        if self.quantity < amount:
-            return print ("Sorry there are no more of this product left")
-        else:
-            self.quantity = self.quantity - amount
+        #Reduces the amount of that product
+        self.quantity = self.quantity - amount
     def increase(self,amount):
           #increases the amount of that product
         self.quantity = self.quantity + amount
+class Cart(Product):
+    def __init__ (self):
+        self.cart = [0,0,0,0]
+    def check(self):
+
+    def add (self,choose):
+        if choose == 'computer':
+            self.cart[0] += 1
+        elif choose == 'laptop':
+            self.cart[1] += 1
+        elif choose == 'mouse': 
+            self.cart[2] += 1
+        elif choose == 'keyboard':
+            self.cart[3] += 1
+    def remove (name):
+        pass
+
 computer = Product("Computer","A personal electronic device",15,500)
 laptop = Product("Laptop","A portable personal electronic device",5,600)
 mouse = Product ("Mouse","A device that allows manipulation of the cursor",50,50)
 keyboard = Product ("Keyboard","A device that allows you to type with your device",50,50)
 products = [computer,laptop,mouse,keyboard]
+cart = Cart()
+
+
 
 
         
@@ -113,6 +119,7 @@ def ui (x,age,option,user):
             choose = int (input("Input a valid number "))-1
             try:
                 products[choose].list() 
+                return options(x,age,user) 
                 
             except TypeError:
                 print ("Please enter valid choose")
@@ -120,9 +127,28 @@ def ui (x,age,option,user):
         except ValueError:
             print ("please enter a valid \033[1m   NUMBER \033[0m")
             return ui(x,age,option,user)
-    elif option.lower() == "buy":
-        pass
-    elif option.lower() == "remove from cart":
+    elif option.lower() =="current":
+        pass    
+    elif option.lower() == "purchase":
+        print ('''               1 - Computer
+               2 - Laptop
+               3 - Mouse
+               4 - Keyboard''')
+        try:
+            choose = int (input("Input a valid number "))-1
+            try:
+                if products[choose].quantity == 0:
+                    
+            
+                return options(x,age,user) 
+                
+            except TypeError:
+                print ("Please enter valid choose")
+                return ui(x,age,option,user)
+        except ValueError:
+            print ("please enter a valid \033[1m   NUMBER \033[0m")
+            return ui(x,age,option,user)
+    elif option.lower() == "remove":
         pass
     elif option.lower() == "checkout":
         pass
@@ -130,11 +156,6 @@ def ui (x,age,option,user):
         print ("Please enter valid option")
         return options(x,age)
     
-
-
-
-
-
 
 
 def options(x,age,user):
@@ -148,6 +169,7 @@ def options(x,age,user):
            Display - To display details of your bank account
         \033[1m   Shopping \033[0m
            Products - To list all products available
+           Current - To check current items in cart
            Purchase - To add an available item to the cart 
            Remove - To remove item from cart
            Checkout - To purchase items
@@ -155,10 +177,6 @@ def options(x,age,user):
     option = input("What do you want to do, " + x.title() + " " )
     ui (x,age,option,user)
     
-
-
-
-
 
 def logon(x):
     #validation for failing attempts
