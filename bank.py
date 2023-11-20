@@ -7,6 +7,12 @@ class User:
         #displays details of account
         print ("Name: " + self.name.title())
         print ("Age: " + str(self.age))
+
+
+
+
+
+
 class Bank (User):
     def __init__(self,name,age):
         #allows perimeters to be inherited also 
@@ -22,7 +28,12 @@ class Bank (User):
     def displaybank (self):
         # display balance
         print ("Balance: " + str(self.balance))
-class product():
+
+
+
+
+
+class Product():
     # creates the attributes for products 
     def __init__(self,name,desc,quantity,price):
         self.name = name
@@ -34,7 +45,7 @@ class product():
         print (f'''                   \033[1m{self.name}\033[0m
                           {self.desc}
 quantity: {self.quantity}
-Price: {self.price}''')
+Price: ${self.price}''')
     def reduce(self,amount):
         #checks if amount can be reduced and then reduces the amount if it can
         if self.quantity < amount:
@@ -44,6 +55,12 @@ Price: {self.price}''')
     def increase(self,amount):
           #increases the amount of that product
         self.quantity = self.quantity + amount
+computer = Product("Computer","A personal electronic device",15,500)
+laptop = Product("Laptop","A portable personal electronic device",5,600)
+mouse = Product ("Mouse","A device that allows manipulation of the cursor",50,50)
+keyboard = Product ("Keyboard","A device that allows you to type with your device",50,50)
+products = [computer,laptop,mouse,keyboard]
+
 
         
 def ui (x,age,option,user):
@@ -81,15 +98,28 @@ def ui (x,age,option,user):
                 return options (x,age,user)
         except ValueError:
             print ("please enter a valid \033[1m   NUMBER \033[0m")
-            return options(x,age,user)
+            return ui(x,age,option,user)
     elif option.lower() == "display":
         # displays user's bank details
         user.displaybank()
         return options(x,age,user)
     elif option.lower() == "products":
         #Displays a list of available products 
-        print ('''
-               1 - computer''')
+        print ('''               1 - Computer
+               2 - Laptop
+               3 - Mouse
+               4 - Keyboard''')
+        try:
+            choose = int (input("Input a valid number "))-1
+            try:
+                products[choose].list() 
+                
+            except TypeError:
+                print ("Please enter valid choose")
+                return ui(x,age,option,user)
+        except ValueError:
+            print ("please enter a valid \033[1m   NUMBER \033[0m")
+            return ui(x,age,option,user)
     elif option.lower() == "buy":
         pass
     elif option.lower() == "remove from cart":
@@ -99,6 +129,14 @@ def ui (x,age,option,user):
     else:
         print ("Please enter valid option")
         return options(x,age)
+    
+
+
+
+
+
+
+
 def options(x,age,user):
     # Allows the user to choose
     print ('''\033[1mEnter:\033[0m
@@ -117,6 +155,9 @@ def options(x,age,user):
     option = input("What do you want to do, " + x.title() + " " )
     ui (x,age,option,user)
     
+
+
+
 
 
 def logon(x):
@@ -148,7 +189,5 @@ def logon(x):
             lockingout = lockingout + 1
             return logon(input ("please enter a name "))
 lockingout = 0
-
-
 startuser = input ("Please enter a name ")
 logon(startuser)
