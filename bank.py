@@ -32,20 +32,20 @@ class Product():
     def list(self):
         #lists the products profile
         print (f'''                   \033[1m{self.name}\033[0m
-                          {self.desc}
+{self.desc}
 quantity: {self.quantity}
 Price: ${self.price}''')
-    def reduce(self,amount):
+    def reduce(self):
         #Reduces the amount of that product
-        self.quantity = self.quantity - amount
-    def increase(self,amount):
+        self.quantity = self.quantity - 1
+    def increase(self):
           #increases the amount of that product
-        self.quantity = self.quantity + amount
+        self.quantity = self.quantity + 1
 class Cart(Product):
     def __init__ (self):
         self.cart = [0,0,0,0]
     def check(self):
-
+        pass
     def add (self,choose):
         if choose == 'computer':
             self.cart[0] += 1
@@ -55,15 +55,18 @@ class Cart(Product):
             self.cart[2] += 1
         elif choose == 'keyboard':
             self.cart[3] += 1
-    def remove (name):
-        pass
+    def remove (self,choose):
+        if choose == 'computer':
+            self.cart[0] -= 1
+        elif choose == 'laptop':
+            self.cart[1] -= 1
+        elif choose == 'mouse': 
+            self.cart[2] -= 1
+        elif choose == 'keyboard':
+            self.cart[3] -= 1
+    def show(self,number):
+        return self.cart[number]
 
-computer = Product("Computer","A personal electronic device",15,500)
-laptop = Product("Laptop","A portable personal electronic device",5,600)
-mouse = Product ("Mouse","A device that allows manipulation of the cursor",50,50)
-keyboard = Product ("Keyboard","A device that allows you to type with your device",50,50)
-products = [computer,laptop,mouse,keyboard]
-cart = Cart()
 
 
 
@@ -103,7 +106,7 @@ def ui (x,age,option,user):
                 user.withdraw(amount)
                 return options (x,age,user)
         except ValueError:
-            print ("please enter a valid \033[1m   NUMBER \033[0m")
+            print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
     elif option.lower() == "display":
         # displays user's bank details
@@ -111,7 +114,8 @@ def ui (x,age,option,user):
         return options(x,age,user)
     elif option.lower() == "products":
         #Displays a list of available products 
-        print ('''               1 - Computer
+        print ('''\033[1mAvailable products:\033[0m  
+               1 - Computer
                2 - Laptop
                3 - Mouse
                4 - Keyboard''')
@@ -125,10 +129,16 @@ def ui (x,age,option,user):
                 print ("Please enter valid choose")
                 return ui(x,age,option,user)
         except ValueError:
-            print ("please enter a valid \033[1m   NUMBER \033[0m")
+            print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
     elif option.lower() =="current":
-        pass    
+        #display's current items in cart
+        print (f'''Current items in cart:
+Computer - {cart.show(0)}
+Laptop - {cart.show(1)}
+Mouse - {cart.show(2)}
+Keyboard - {cart.show(3)} ''')
+        options(x,age,user)    
     elif option.lower() == "purchase":
         print ('''               1 - Computer
                2 - Laptop
@@ -137,24 +147,49 @@ def ui (x,age,option,user):
         try:
             choose = int (input("Input a valid number "))-1
             try:
+                #checks if there is that product exists in the cart 
                 if products[choose].quantity == 0:
-                    
-            
-                return options(x,age,user) 
-                
-            except TypeError:
+                    print ("Sorry there is none left of that product" )
+                    return options(x,age,user) 
+                else:
+                    products[choose].reduce()
+                    print ("Adding product")
+                    cart.add(productstr[choose])
+                    return options(x,age,user) 
+            except IndexError:
                 print ("Please enter valid choose")
                 return ui(x,age,option,user)
         except ValueError:
-            print ("please enter a valid \033[1m   NUMBER \033[0m")
+            print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
     elif option.lower() == "remove":
-        pass
+        print ('''               1 - Computer
+               2 - Laptop
+               3 - Mouse
+               4 - Keyboard''')
+        try:
+            choose = int (input("Input a valid number "))-1
+            try:
+                #checks if there is that product left
+                if products[choose].show(choose) == 0:
+                    print ("Sorry there is none left of that product in the cart" )
+                    return options(x,age,user) 
+                else:
+                    products[choose].increase()
+                    print ("removing")
+                    cart.remove(productstr[choose])
+                    return options(x,age,user) 
+            except IndexError:
+                print ("Please enter valid choose")
+                return ui(x,age,option,user)
+        except ValueError:
+            print ("please enter a valid \033[1mNUMBER\033[0m")
+            return ui(x,age,option,user)
     elif option.lower() == "checkout":
         pass
     else:
         print ("Please enter valid option")
-        return options(x,age)
+        return options(x,age,user)
     
 
 
@@ -200,12 +235,17 @@ def logon(x):
             age = 1
             user = Bank(x,age)
             options(x,age,user)
-            
-            
         else:
             print ("You have failed to enter a valid user")
             lockingout = lockingout + 1
             return logon(input ("please enter a name "))
+computer = Product("Computer","A personal electronic device",15,500)
+laptop = Product("Laptop","A portable personal electronic device",5,600)
+mouse = Product ("Mouse","A device that allows manipulation of the cursor",50,50)
+keyboard = Product ("Keyboard","A device that allows you to type with your device",50,50)
+products = [computer,laptop,mouse,keyboard]
+productstr = ["computer","laptop","mouse","keyboard"]
+cart = Cart()
 lockingout = 0
 startuser = input ("Please enter a name ")
 logon(startuser)

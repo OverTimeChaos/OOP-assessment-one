@@ -6,6 +6,7 @@
         "displaydetails",
         "displayname",
         "lockingout",
+        "productstr",
         "startuser"
     ]
 }
