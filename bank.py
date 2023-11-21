@@ -44,8 +44,6 @@ Price: ${self.price}''')
 class Cart(Product):
     def __init__ (self):
         self.cart = [0,0,0,0]
-    def check(self):
-        pass
     def add (self,choose):
         if choose == 'computer':
             self.cart[0] += 1
@@ -148,7 +146,7 @@ Keyboard - {cart.show(3)} ''')
             choose = int (input("Input a valid number "))-1
             try:
                 #checks if there is that product exists in the cart 
-                if products[choose].quantity == 0:
+                if cart[choose].quantity == 0:
                     print ("Sorry there is none left of that product" )
                     return options(x,age,user) 
                 else:
