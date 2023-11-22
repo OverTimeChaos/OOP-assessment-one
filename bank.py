@@ -15,13 +15,14 @@ class Bank (User):
     def deposit (self,amount):
         #allows user to add money to account
         self.balance = self.balance + amount
-        print (f"New balance is {self.balance}")
+        print (f"New balance is ${self.balance}")
     def withdraw (self,amount):
         #allows user to redraw money from account
         self.balance = self.balance - amount
+        print (f"New balance is ${self.balance}")
     def displaybank (self):
         # display balance
-        print ("Balance: " + str(self.balance))
+        print ("Balance: $" + str(self.balance))
 class Product():
     # creates the attributes for products 
     def __init__(self,name,desc,quantity,price):
@@ -63,7 +64,11 @@ class Cart(Product):
         elif choose == 'keyboard':
             self.cart[3] -= 1
     def show(self,number):
+        # shows the amount of the item in cart
         return self.cart[number]
+    def showar(self):
+        # shows the amount of things in the cart
+        return self.cart
 
 
 
@@ -146,7 +151,7 @@ Keyboard - {cart.show(3)} ''')
             choose = int (input("Input a valid number "))-1
             try:
                 #checks if there is that product exists in the cart 
-                if cart[choose].quantity == 0:
+                if products[choose].quantity == 0:
                     print ("Sorry there is none left of that product" )
                     return options(x,age,user) 
                 else:
@@ -169,12 +174,12 @@ Keyboard - {cart.show(3)} ''')
             choose = int (input("Input a valid number "))-1
             try:
                 #checks if there is that product left
-                if products[choose].show(choose) == 0:
+                if cart.show(choose) == 0:
                     print ("Sorry there is none left of that product in the cart" )
                     return options(x,age,user) 
                 else:
                     products[choose].increase()
-                    print ("removing")
+                    print ("Removing")
                     cart.remove(productstr[choose])
                     return options(x,age,user) 
             except IndexError:
@@ -184,7 +189,28 @@ Keyboard - {cart.show(3)} ''')
             print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
     elif option.lower() == "checkout":
-        pass
+         #allows people to check out
+         print (f'''Current items in cart:
+Computer - {cart.show(0)} - ${cart.show(0)*computer.price}
+Laptop - {cart.show(1)} - ${cart.show(1)*laptop.price}
+Mouse - {cart.show(2)} - ${cart.show(2)*mouse.price}
+Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
+         input ('Press enter to continue ')
+         total = cart.show(0)*computer.price + cart.show(1)*laptop.price + cart.show(2)*mouse.price + cart.show(3)*keyboard.price
+         if total > user.balance:
+            print ("Not enough funds in bank account to purchase items. Please remove some items")
+            return options(x,age,user)
+         elif list(cart.showar()) == [0] * len(cart.showar()):
+             print ("There is no items in the cart")
+             return options(x,age,user)
+         else:
+             print ("Checking out...")
+             user.withdraw(total)
+             print ("Checked out. Thank you for purchase at [redacted]")
+             quit()
+            
+
+                 
     else:
         print ("Please enter valid option")
         return options(x,age,user)
