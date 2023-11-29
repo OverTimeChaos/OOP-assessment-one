@@ -240,29 +240,29 @@ def options(x,age,user):
 def logon(x):
     #validation for failing attempts
     global lockingout
-    if lockingout == 3:
+    if lockingout == 2:
         print ("Failed too many times. You have been locked out.")
         quit()
     else:
         if x.lower() == "aidan":
             print ("Welcome, Aidan")
-            age = -127
-            user = Bank(x,age)
-            options(x,age,user)
+            user = aidan
+            options(x,user.age,user)
         elif x.lower() == "akhil":
             print ("Welcome, Akhil")
-            age = 17
-            user = Bank(x,age)
-            options(x,age,user)
+            user = akhil
+            options(x,user.age,user)
         elif x.lower() == "adam":
             print ("Welcome, Adam")
-            age = 1
-            user = Bank(x,age)
-            options(x,age,user)
+            user = adam
+            options(x,user.age,user)
         else:
             print ("You have failed to enter a valid user")
             lockingout = lockingout + 1
             return logon(input ("please enter a name "))
+adam = Bank('adam',1)
+akhil = Bank('akhil',17)
+aidan = Bank("aidan",-127)
 computer = Product("Computer","A personal electronic device",15,500)
 laptop = Product("Laptop","A portable personal electronic device",5,600)
 mouse = Product ("Mouse","A device that allows manipulation of the cursor",50,50)
