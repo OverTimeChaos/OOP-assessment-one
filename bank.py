@@ -222,7 +222,7 @@ def options(x,age,user):
     print ('''\033[1mEnter corresponding Keywords under following titles denoted by "-- --" :\033[0m
         \033[1m   --Account-- \033[0m
            Details - TO display account details
-        \033[1m   Bank \033[0m
+        \033[1m   --Bank-- \033[0m
            Deposit - To deposit money into bank account
            Withdraw - To withdraw money from bank account
            Display - To display details of your bank account
