@@ -127,7 +127,7 @@ def ui (x,age,option,user):
                4 - Keyboard''')
         try:
             choose = int (input("Input a valid ID number or 0 to exit  "))-1
-            if choose == 0:
+            if choose == -1:
                 return options(x,age,user)
             else:
                 try:
