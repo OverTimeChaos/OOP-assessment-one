@@ -69,6 +69,9 @@ class Cart(Product):
     def showar(self):
         # shows the amount of things in the cart
         return self.cart
+    def empty(self):
+        # empties cart
+        self.cart = [0,0,0,0]
 
 
 
@@ -82,7 +85,7 @@ def ui (x,age,option,user):
     elif option.lower() == "deposit":
         try:
             #checks if the value entered is a integer
-            amount = int(input("How much do we you want to deposit? "))
+            amount = int(input("How much do we you want to deposit? or 0 to exit  "))
             if amount < 0:
                 #checks if the value is above zero and is not negative
                 print("You can not deposit negative money")
@@ -96,7 +99,7 @@ def ui (x,age,option,user):
     elif option.lower() == "withdraw":
         try:
             #checks if the value entered is a integer
-            amount = int(input("How much do we you want to deposit? "))
+            amount = int(input("How much do we you want to deposit? or 0 to exit "))
             if amount < 0:
                 #checks if the value is above zero and is not negative
                 print("You can not withdraw negative money")
@@ -123,14 +126,17 @@ def ui (x,age,option,user):
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid ID number "))-1
-            try:
-                products[choose].list() 
-                return options(x,age,user) 
+            choose = int (input("Input a valid ID number or 0 to exit  "))-1
+            if choose == 0:
+                return options(x,age,user)
+            else:
+                try:
+                    products[choose].list() 
+                    return options(x,age,user) 
                 
-            except TypeError:
-                print ("Please enter valid choose")
-                return ui(x,age,option,user)
+                except TypeError:
+                    print ("Please enter valid choose")
+                    return ui(x,age,option,user)
         except ValueError:
             print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
@@ -148,20 +154,23 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid ID number "))-1
-            try:
-                #checks if there is that product exists in the cart 
-                if products[choose].quantity == 0:
-                    print ("Sorry there is none left of that product" )
-                    return options(x,age,user) 
-                else:
-                    products[choose].reduce()
-                    print ("Adding product")
-                    cart.add(productstr[choose])
-                    return options(x,age,user) 
-            except IndexError:
-                print ("Please enter valid choose")
-                return ui(x,age,option,user)
+            choose = int (input("Input a valid ID number or 0 to exit "))-1
+            if choose == -1:
+                return options(x,age,user)
+            else:
+                try:
+                    #checks if there is that product exists in the cart 
+                    if products[choose].quantity == 0:
+                        print ("Sorry there is none left of that product" )
+                        return options(x,age,user) 
+                    else:
+                        products[choose].reduce()
+                        print ("Adding product")
+                        cart.add(productstr[choose])
+                        return options(x,age,user) 
+                except IndexError:
+                    print ("Please enter valid choose")
+                    return ui(x,age,option,user)
         except ValueError:
             print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
@@ -171,20 +180,23 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid ID number "))-1
-            try:
-                #checks if there is that product left
-                if cart.show(choose) == 0:
-                    print ("Sorry there is none left of that product in the cart" )
-                    return options(x,age,user) 
-                else:
-                    products[choose].increase()
-                    print ("Removing")
-                    cart.remove(productstr[choose])
-                    return options(x,age,user) 
-            except IndexError:
-                print ("Please enter valid choose")
-                return ui(x,age,option,user)
+            choose = int (input("Input a valid ID number or 0 to exit "))-1
+            if choose == -1:
+                return options(x,age,user)
+            else:
+                try:
+                    #checks if there is that product left
+                    if cart.show(choose) == 0:
+                        print ("Sorry there is none left of that product in the cart" )
+                        return options(x,age,user) 
+                    else:
+                        products[choose].increase()
+                        print ("Removing")
+                        cart.remove(productstr[choose])
+                        return options(x,age,user) 
+                except IndexError:
+                    print ("Please enter valid choose")
+                    return ui(x,age,option,user)
         except ValueError:
             print ("please enter a valid \033[1mNUMBER\033[0m")
             return ui(x,age,option,user)
@@ -206,8 +218,13 @@ Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
          else:
              print ("Checking out...")
              user.withdraw(total)
-             print ("Checked out. Thank you for purchase at [redacted]")
-             quit()
+             yesno = input("Do you want to continue shopping if so type 'yes' if not type anything else ")
+             if yesno.lower() == "yes":
+                cart.empty()
+                options(x,age,user)
+             else:
+                print ("Checked out. Thank you for purchase at [redacted]")
+                quit()
             
 
                  
