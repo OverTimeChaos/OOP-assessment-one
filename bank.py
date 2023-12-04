@@ -123,7 +123,7 @@ def ui (x,age,option,user):
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid number "))-1
+            choose = int (input("Input a valid ID number "))-1
             try:
                 products[choose].list() 
                 return options(x,age,user) 
@@ -148,7 +148,7 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid number "))-1
+            choose = int (input("Input a valid ID number "))-1
             try:
                 #checks if there is that product exists in the cart 
                 if products[choose].quantity == 0:
@@ -171,7 +171,7 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid number "))-1
+            choose = int (input("Input a valid ID number "))-1
             try:
                 #checks if there is that product left
                 if cart.show(choose) == 0:
@@ -219,7 +219,7 @@ Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
 
 def options(x,age,user):
     # Allows the user to choose
-    print ('''\033[1mEnter:\033[0m
+    print ('''\033[1mEnter corresponding Keywords:\033[0m
         \033[1m   Account \033[0m
            Details - TO display account details
         \033[1m   Bank \033[0m
