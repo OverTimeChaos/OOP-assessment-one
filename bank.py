@@ -219,14 +219,14 @@ Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
 
 def options(x,age,user):
     # Allows the user to choose
-    print ('''\033[1mEnter corresponding Keywords:\033[0m
-        \033[1m   Account \033[0m
+    print ('''\033[1mEnter corresponding Keywords under following titles denoted by "-- --" :\033[0m
+        \033[1m   --Account-- \033[0m
            Details - TO display account details
         \033[1m   Bank \033[0m
            Deposit - To deposit money into bank account
            Withdraw - To withdraw money from bank account
            Display - To display details of your bank account
-        \033[1m   Shopping \033[0m
+        \033[1m   --Shopping-- \033[0m
            Products - To list all products available
            Current - To check current items in cart
            Purchase - To add an available item to the cart 
@@ -244,7 +244,7 @@ def logon(x):
         print ("Failed too many times. You have been locked out.")
         quit()
     else:
-        if x.lower() == "aidan":
+        if x.lower() == "aidan" or x.lower() == "aids"  :
             print ("Welcome, Aidan")
             user = aidan
             options(x,user.age,user)
