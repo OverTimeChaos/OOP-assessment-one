@@ -15,14 +15,14 @@ class Bank (User):
     def deposit (self,amount):
         #allows user to add money to account
         self.balance = self.balance + amount
-        print (f"New balance is ${self.balance}")
+        print (f"New balance is ${round(self.balance)}")
     def withdraw (self,amount):
         #allows user to redraw money from account
         self.balance = self.balance - amount
-        print (f"New balance is ${self.balance}")
+        print (f"New balance is ${round(self.balance)}")
     def displaybank (self):
         # display balance
-        print ("Balance: $" + str(self.balance))
+        print ("Balance: $" + str(round(self.balance)))
 class Product():
     # creates the attributes for products 
     def __init__(self,name,desc,quantity,price):
@@ -85,7 +85,7 @@ def ui (x,age,option,user):
     elif option.lower() == "deposit":
         try:
             #checks if the value entered is a integer
-            amount = int(input("How much do we you want to deposit? or 0 to exit  "))
+            amount = float(input("How much do we you want to deposit? or 0 to exit  "))
             if amount < 0:
                 #checks if the value is above zero and is not negative
                 print("You can not deposit negative money")
@@ -99,7 +99,7 @@ def ui (x,age,option,user):
     elif option.lower() == "withdraw":
         try:
             #checks if the value entered is a integer
-            amount = int(input("How much do we you want to deposit? or 0 to exit "))
+            amount = float(input("How much do we you want to deposit? or 0 to exit "))
             if amount < 0:
                 #checks if the value is above zero and is not negative
                 print("You can not withdraw negative money")
@@ -154,7 +154,7 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid ID number or 0 to exit "))-1
+            choose = int (input("Input a valid ID number or 0 to exit:  "))-1
             if choose == -1:
                 return options(x,age,user)
             else:
@@ -180,7 +180,7 @@ Keyboard - {cart.show(3)} ''')
                3 - Mouse
                4 - Keyboard''')
         try:
-            choose = int (input("Input a valid ID number or 0 to exit "))-1
+            choose = int (input("Input a valid ID number or 0 to exit: "))-1
             if choose == -1:
                 return options(x,age,user)
             else:
@@ -218,7 +218,7 @@ Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
          else:
              print ("Checking out...")
              user.withdraw(total)
-             yesno = input("Do you want to continue shopping if so type 'yes' if not type anything else ")
+             yesno = input("Do you want to continue shopping if so type 'yes' if not type anything else? ")
              if yesno.lower() == "yes":
                 cart.empty()
                 options(x,age,user)
@@ -236,7 +236,7 @@ Keyboard - {cart.show(3)} - ${cart.show(3)*keyboard.price} ''')
 
 def options(x,age,user):
     # Allows the user to choose
-    print ('''\033[1mEnter corresponding Keywords under following titles denoted by "-- --" :\033[0m
+    print ('''\033[1mEnter corresponding Keywords under following titles that are denoted by "-- --" :\033[0m
         \033[1m   --Account-- \033[0m
            Details - TO display account details
         \033[1m   --Bank-- \033[0m
@@ -250,7 +250,7 @@ def options(x,age,user):
            Remove - To remove item from cart
            Checkout - To purchase items
            ''')
-    option = input("What do you want to do, " + x.title() + " " )
+    option = input("What do you want to do, " + x.title() + "? " )
     ui (x,age,option,user)
     
 
@@ -276,7 +276,7 @@ def logon(x):
         else:
             print ("You have failed to enter a valid user")
             lockingout = lockingout + 1
-            return logon(input ("please enter a name "))
+            return logon(input ("Please enter a name: "))
 adam = Bank('adam',1)
 akhil = Bank('akhil',17)
 aidan = Bank("aidan",-127)
@@ -288,5 +288,5 @@ products = [computer,laptop,mouse,keyboard]
 productstr = ["computer","laptop","mouse","keyboard"]
 cart = Cart()
 lockingout = 0
-startuser = input ("Please enter a name ")
+startuser = input ("Please enter a name: ")
 logon(startuser)
